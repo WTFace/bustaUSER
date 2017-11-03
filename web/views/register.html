@@ -1,0 +1,195 @@
+{{##def.page_title = 'Register' #}}
+
+{{##def.content:
+<script type="text/javascript">
+ 
+    function refresh() {
+        location.reload();
+    }
+</script>
+ 
+<script type="text/javascript" src="http://su-graph.com/_js/_lib/jquery_1.5.1.js"></script>
+<script type="text/javascript" src="http://su-graph.com/_js/_lib/ptype_2.0.1.js"></script>
+<script type="text/javascript" src="http://su-graph.com/_js/_lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="http://su-graph.com/_js/default.js"></script>
+<script src='http://su-graph.com/sendsms.js'></script>
+<script src='http://su-graph.com/rand.js'></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript">
+        var submitEnabled = false;
+        function enableSubmit() {
+            submitEnabled = true;
+      var s = document.getElementById('registerSubmit');
+      s.style.display = 'block';
+    }
+
+    window.onload = function () {
+        if (document.getElementById('confirmation') !== null) {
+            document.getElementById('confirmation').onchange = validatePassword;
+            document.getElementById('password').onchange = validatePassword;
+        }
+    };
+    function validatePassword() {
+        var password = document.getElementById('password').value;
+        var confirm = document.getElementById('confirmation').value;
+        if (password != confirm) {
+            document.getElementById('confirmation').setCustomValidity("비밀번호 확인이 바르지 않습니다.");
+        } else document.getElementById("confirmation").setCustomValidity('');
+    }
+</script>
+<script type="text/javascript" language="javascript">
+    
+    function openPop(){
+        var pop_title = "popupOpener" ;
+         
+        window.open("", pop_title) ;
+         
+        var frmData = document.frmData ;
+        frmData.target = pop_title ;
+        frmData.action = "http://su-graph.com/sendsms.asp" ;
+         
+        frmData.submit() ;
+    }
+ 
+ function submituser(){
+         
+        var frmData = document.frmData ;
+        frmData.target = "_self";
+        frmData.action = "/register";
+         
+        frmData.submit() ;  
+    }
+ 
+</script>
+    <div class="inner-content" style="max-width: 60%;margin:auto;">
+        <div class="register">
+            <form action="/register" id="frmData" name="frmData" method="post" onsubmit="return submitEnabled;">
+            
+                <div class="row" style="text-align: center;">
+                    <div class="large-7 columns input" style="text-align: left;">
+                        <h5 style="font-size:24px">새 계정 만들기 <small><a href="login" style="    color: #337ab7;
+    text-decoration: none;">이미 계정이 있으십니까?</a></small></h5><br>
+                        <br>
+                    </div>
+                    <div class="large-7 columns input">
+
+                        <div class="row">
+                        <body onload="randomNum.printRandom('auth', 5)">
+    
+                            <div class="large-3 columns">
+                                <label for="username">추천인</label>
+                            </div>
+                            <div class="large-9 columns">
+                                <input id="username" type="text" name="user[code]" value="{{?it.values}}{{!it.values.name}}{{?}}" autocomplete="off" pattern="[A-Za-z0-9_\-]{3,16}" title="Username only allowed alphanumeric, hyphen and underscore" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-7 columns input">
+
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label for="username">아이디</label>
+                            </div>
+                            <div class="large-9 columns">
+                                <input id="username" type="text" name="user[name]" value="{{?it.values}}{{!it.values.name}}{{?}}" autocomplete="off" pattern="[A-Za-z0-9_\-]{3,16}" title="Username only allowed alphanumeric, hyphen and underscore" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>비밀번호</label>
+                            </div>
+                            <div class="large-9 columns" style="text-align:left;">
+                                <input id="password" type="password" value="{{?it.values}}{{!it.values.password}}{{?}}" name="user[password]" autocomplete="off" title="Password should be at least 7 characters" required/>
+                                <small style="color: #00a4ef">최소 7자이상, 영어와 숫자를 섞어 입력하세요.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>비밀번호 재확인</label>
+                            </div>
+                            <div class="large-9 columns">
+                                <input id="confirmation" type="password" value="{{?it.values}}{{!it.values.confirm}}{{?}}" name="user[confirm]" autocomplete="off" data-equal-id="password" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label for="email">휴대폰번호</label>
+                            </div>
+                            <div class="large-9 columns">
+                            
+                                <input type="text" id="email" placeholder="01012345678" name="user[email]" autocomplete="off">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>계좌 은행</label>
+                            </div>
+                            <div class="large-9 columns">
+                                <select id="bankname" name="user[bankname]" required>
+                                            <option>은행을 선택해주세요</option>
+                                            <option value="국민">KB국민은행</option>
+                                            <option value="신한">신한은행</option>
+                                            <option value="우리">우리은행</option>
+                                            <option value="하나">하나은행</option>
+                                            <option value="외환">외환은행</option>
+                                            <option value="한국산업">한국산업은행</option>
+                                            <option value="기업">기업은행</option>
+                                            <option value="수협중앙회">수협중앙회</option>
+                                            <option value="농협">NH농협은행</option>
+                                            <option value="대구">대구은행</option>
+                                            <option value="부산">부산은행</option>
+                                            <option value="광주">광주은행</option>
+                                            <option value="제주">제주은행</option>
+                                            <option value="전북">전북은행</option>
+                                            <option value="경남">경남은행</option>
+                                            <option value="산림조합">산림조합</option>
+                                            <option value="새마을">새마을금고</option>
+                                            <option value="신용협동">신용협동조합</option>
+                                            <option value="우체국">우체국</option>
+                                            <option value="카카오">카카오뱅크</option>
+                                            <option value="HSBC">HSBC은행</option>
+                                            <option value="스탠다드차타드">스텐다드차타드은행</option>
+                                            <option value="씨티">한국씨티은행</option>
+                                            <option value="저축">저축은행</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>예금주명</label>
+                            </div>
+                            <div class="large-9 columns">
+                    <input id="bankowner" type="text" value="{{?it.values}}{{!it.values.bankowner}}{{?}}" name="user[bankowner]" autocomplete="off" placeholder="예금주명"/>
+                    </div></div></div>
+                    <div class="large-7 columns input">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>계좌번호</label>
+                            </div>
+                            <div class="large-9 columns">
+                    <input id="banknum" type="text" value="{{?it.values}}{{!it.values.banknum}}{{?}}" name="user[banknum]" autocomplete="off" placeholder="계좌번호"/>
+                    </div></div></div></form>
+                    <div class="large-7 columns" style="text-align: left;padding-top:30px;">
+                        
+                        <a onclick="submituser();" class="button-css blue-button" style="width:300px;margin:auto;">등록하기</a>
+                    </div>
+                </div>
+                </div>
+            
+        </div></body>
+#}}
+{{#def.include('./template/main_new')}}

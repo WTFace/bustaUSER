@@ -1,0 +1,110 @@
+{{##def.page_title = 'Security Settings' #}}
+{{##def.content:
+<script type="text/javascript">
+    window.onload = function () {
+        if (document.getElementById('confirmation') !== null) {
+            document.getElementById('confirmation').onchange = validatePassword;
+            document.getElementById('password').onchange = validatePassword;
+        }
+    };
+    function validatePassword() {
+        var password = document.getElementById('password').value;
+        var confirm = document.getElementById('confirmation').value;
+        if (password != confirm) {
+            document.getElementById('confirmation').setCustomValidity("Confirmation and password should be the same");
+        } else document.getElementById("confirmation").setCustomValidity('');
+    }
+    function logout() {
+        if (document.getElementById('logout') ) {
+            if (confirm("Are you sure you want to log out?")) {
+                document.getElementById("logout").submit();
+            }
+        }
+    }
+</script>
+<form action="/logout" method="post" id='logout'></form>
+<div class="my-account" style="width:60%;margin:auto;">
+
+    <div class="settings" >
+        <div class="my-account-nav">
+            <ul class="menu">
+                <li>
+                   <a href="/account">내 계정</a>
+                </li>
+                <li>
+                    <a href="/security">보안</a>
+                </li>
+                <li>
+                    <a href="/deposit">충전</a>
+                </li>
+                <li>
+                    <a href="/withdraw">환전</a>
+                </li>
+                <li>
+                    <a href="/note">쪽지</a>
+                </li>
+                <li>
+                    <a href="/support">고객센터</a>
+                </li>
+                <li>
+                    <a onclick="logout();">
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="my-account-content">
+            <h5>비밀번호 변경</h5>
+            <form action="reset-password" method="post" >
+                <label for="old_password">이전 비밀번호</label>
+                <input name="old_password" type="password" id="old_password" autocomplete="off" required/>
+                {{?it.user.mfa_secret}}
+                    <label>2FA Code
+                        <input name="otp" type="text" pattern="[0-9]{6}" required />
+                    </label>
+                {{?}}
+                <label for="password">새 비밀번호 <span class="small">7글자 이상</span></label>
+                <input name="password" type="password" id="password" pattern=".{7,50}" required/>
+                <label for="confirmation">새 비밀번호 확인</label>
+                <input name="confirmation" type="password" id="confirmation" pattern=".{7,50}" required/>
+                <input type="submit" class="border-button blue" value="확인"/>
+            </form>
+           
+
+            <br>
+            <br>
+            <hr>
+            {{?it.user.mfa_secret}}
+                <h5>OTP 로그인 비활성화</h5>
+                <p class="small">OTP 로그인을 비활성화하려면, OTP 비밀번호를 입력해주세요.</p>
+                <form action="/disable-2fa" method="post">
+                    <label>2FA Code
+                        <input name="otp" type="text" pattern="[0-9]{6}" required />
+                    </label>
+                    <input class="border-button right blue" type="submit" value="비활성화" />
+                </form>
+            {{??}}
+                <h5>OTP 로그인 활성화</h5>
+                <p class="small">
+                    OTP 로그인을 활성화하려면, QR코드를 스캔하신 후 OTP 비밀번호를 확인해주세요.
+                    <br>
+                    
+                </p>
+                <div class="column medium-6">
+                    {{=it.user.qr_svg}}
+                    <small>Secret: {{=it.user.mfa_potential_secret}}</small>
+                </div>
+                <form class="column medium-6" action="/enable-2fa" method="post">
+                    <label>OTP PASS
+                        <input type="hidden" name="mfa_potential_secret" value="{{=it.user.mfa_potential_secret}}" />
+                        <input type="hidden" name="sig" value="{{=it.user.sig}}" />
+                        <input name="otp" type="text" pattern="[0-9]{6}" required />
+                    </label>
+                    <input class="border-button right blue" type="submit" value="활성화" />
+                </form>
+            {{?}}
+        </div>
+    </div>
+    </div>
+#}}
+{{#def.include('./template/main_new')}}

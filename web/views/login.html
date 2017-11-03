@@ -1,0 +1,52 @@
+{{##def.page_title = 'Login' #}}
+
+{{##def.content:
+<script>
+    var submitEnabled = false;
+  function enableSubmit() {
+      submitEnabled = true;
+    var s = document.getElementById('loginSubmit');
+    s.style.display = 'block';
+  }
+</script>
+<style type="text/css">
+    form{
+        margin: auto;
+        width: 70%;
+    }
+</style>
+
+<div class="register">
+<div class="container">
+<div class="inner-content">
+<form action="/login" method="post" class="login">
+<input id="fp" name="fp" type="hidden" value="6d1828576614e10b52327a20e9fad9ab">
+<div class="input-wrapper">
+<label class="label-css">ID</label>
+<input type="text" class="input-css" name="username" required="">
+</div>
+<div class="input-wrapper">
+<label class="label-css">비밀번호</label>
+<input type="password" class="input-css" name="password" required="">
+</div>
+<div class="input-wrapper">
+<div class="remember-forget">
+<div class="checkbox">
+<input id="terms-condition" type="checkbox" name="check" value="terms-condition">
+<label for="terms-condition">자동 로그인</label>
+</div><a class="small" href="/forgot-password">비밀번호 찾기</a><br>
+</div>
+</div>
+<div class="input-wrapper">
+    <input id="loginSubmit" class="button-css dark-button" type="submit" value="로그인">
+<p style="color:red;font-weight:bold;text-align:center;margin:20px 0;">충전신청시 항상 입금계좌 확인후 입금바랍니다.
+<br>지정 계좌로 입금하지 않으시면 확인까지 시간이 오래 걸릴수 있습니다.</p>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+
+#}}
+{{#def.include('./template/main_new')}}

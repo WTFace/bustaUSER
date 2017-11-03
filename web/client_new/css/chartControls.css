@@ -1,0 +1,71 @@
+#chart-controls-inner-container {
+    min-height: 15rem;
+    height: 100%;
+}
+@media handheld, only screen and (max-width: 767px) {
+    #chart-controls-inner-container {
+        min-height: 7rem;
+
+    }
+}
+/* Big Screens with small controls */
+@media handheld, only screen and (min-width: 767px) {
+    #chart-controls-inner-container.small {
+        min-height: 4.7rem;
+    }
+}
+
+#chart-container {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: calc(40% + 10px);
+}
+
+#controls-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 60%;
+    right: 0;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+
+/* Big Screens with small controls */
+@media handheld, only screen and (min-width: 767px) {
+
+    #chart-container.small {
+        top: 3px;
+        bottom: 3px;
+        left: 10px;
+        right: calc(50% + 3px);
+    }
+
+    #controls-container.small {
+        left: 50%;
+    }
+}
+
+/* Small Screens */
+@media handheld, only screen and (max-width: 767px) {
+    
+    #chart-container {
+        top: 0;
+        bottom: 5.5rem;
+        left: 0;
+        right: 0;
+    }
+
+    #controls-container{
+        top: calc(100% - 5.0rem);
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: none;
+    }canvas{
+        height: 140px;
+        margin-left: -20px
+    }
+}

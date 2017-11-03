@@ -1,0 +1,82 @@
+{{##def.page_title = 'Your account' #}}
+{{##def.content:
+<script type="text/javascript">
+    function logout() {
+        if (document.getElementById('logout') ) {
+            if (confirm("Are you sure you want to log out?")) {
+                document.getElementById("logout").submit();
+            }
+        }
+    }
+</script>
+<form action="/logout" method="post" id='logout'></form>
+<div class="content row panel radius">
+ 
+    <div class="settings" style="min-height: 500px;">
+        <div class="my-account-nav">
+            <ul class="menu">
+                <li>
+                   <a href="/account">내 계정</a>
+                </li>
+                <li>
+                    <a href="/security">보안</a>
+                </li>
+                <li>
+                    <a href="/deposit">충전</a>
+                </li>
+                <li>
+                    <a href="/withdraw">환전</a>
+                </li>
+                <li>
+                    <a href="/note">쪽지</a>
+                </li>
+                <li>
+                    <a href="/support">고객센터</a>
+                </li>
+                <li>
+                    <a onclick="logout();">
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="my-account-content">
+            <h5>내 계정</h5>
+            <hr>
+            
+            <br>
+            <a class="border-button blue right"href="/user/{{=it.user.username}}">프로필</a>
+            <h5>계정 정보</h5>
+            <div class="table-data" id="statistics">
+<table class="table">
+<thead>
+<tr><th style="width:25%">입금</th>
+<th style="width:25%">출금</th>
+<th style="width:25%">총수익</th>
+<th style="width:25%">보유머니</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>{{#def.format:{n: it.user.deposits, decimals:0} }} 원</td>
+<td>{{#def.format:{n: it.user.withdrawals, decimals:0} }} 원</td>
+<td>{{#def.format:{n: it.user.net_profit, decimals:0} }} 원</td>
+<td>{{#def.format:{n: it.user.balance_satoshis, decimals:0} }} 원</td>
+</tr>
+</tbody>
+</table>
+</div>
+            
+
+            <br>
+            {{?typeof it.user.eligible !== 'number' }}
+                {{?it.user.balance_satoshis < 100}}
+                    <a class="border-button right green" href="/request" style="min-width:100% !important;width:100%">무료머니 받기!</a>
+                {{?}}
+            {{??}}
+                <div class="success bits">이미 무료머니를 받으셨습니다! 무료머니를 받으려면 {{=it.user.eligible}} 분 기다리셔야 합니다.</div>
+            {{?}}
+        </div>
+    </div>
+    </div>
+#}}
+{{#def.include('./template/main_new')}}

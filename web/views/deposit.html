@@ -1,0 +1,79 @@
+{{##def.page_title = 'Deposit History' #}}
+{{##def.content:
+<script type="text/javascript">
+    function logout() {
+        if (document.getElementById('logout') ) {
+            if (confirm("Are you sure you want to log out?")) {
+                document.getElementById("logout").submit();
+            }
+        }
+    }
+</script>
+<form action="/logout" method="post" id='logout'></form>
+    <div class="my-account" style="width:60%;margin:auto;">
+
+    <div class="settings" >
+        <div class="my-account-nav">
+            <ul class="menu">
+                <li>
+                   <a href="/account">내 계정</a>
+                </li>
+                <li>
+                    <a href="/security">보안</a>
+                </li>
+                <li>
+                    <a href="/deposit">충전</a>
+                </li>
+                <li>
+                    <a href="/withdraw">환전</a>
+                </li>
+                <li>
+                    <a href="/note">쪽지</a>
+                </li>
+                <li>
+                    <a href="/support">고객센터</a>
+                </li>
+                <li>
+                    <a onclick="logout();">
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="my-account-content">
+            <a class="border-button right green" href="/deposit/request">충전 신청하기</a>
+                <h5 class=""><b>입금 내역</b></h5>
+
+                <hr>
+                <p class="account">
+                    <b>입금 계좌 :</b>
+                    <input type="text" value="고객센터로 문의해주세요." readonly>
+                    <!--{{=it.user.deposit_address}}-->
+                    
+                </p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td style="text-align: center;">단계</td>
+                                <td style="text-align: center;">금액</td>
+                                <td style="text-align: center;" class="show-for-medium-up">요청 시각</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{~it.user.deposits :deposit:index}}
+                                <tr>
+                                    <td style="text-align: center;">{{=deposit.step}}</td>
+                                    <td style="text-align: center;">{{#def.format: {n: deposit.amount, decimals: 0 } }}</td>
+                                    <td style="text-align: center;" class="show-for-medium-up">{{=deposit.requested}}</td>
+                                </tr>
+                            {{~}}
+                        </tbody>
+                    </table>
+                
+
+            </div>
+        </div>
+    </div>
+#}}
+{{#def.include('./template/main_new')}}
