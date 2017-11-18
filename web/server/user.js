@@ -18,11 +18,7 @@ var sessionOptions = {
     secure : config.PRODUCTION
 };
 
-/**
- * POST
- * Public APIvvvvvvvvvvvvvvvvvvvvvvvvvv
- * Register a user^^^^^^^^^^^^^^^^^^^^^
- */
+
 exports.register  = function(req, res, next) {
     var values = _.merge(req.body, { user: {} });
     var recaptcha = lib.removeNullsAndTrim(req.body['g-recaptcha-response']);
@@ -53,9 +49,6 @@ exports.register  = function(req, res, next) {
         values.user.confirm = null;
         return res.render('register', { warning: 'password not valid because: ' + notValid, values: values.user });
     }
-
-    
-
     // Ensure password and confirmation match
     if (password !== password2) {
         return res.render('register', {

@@ -16,8 +16,8 @@ module.exports = {
   "BIP32_DERIVED": process.env.BIP32_DERIVED_KEY || "xpub6AHA9hZDN11k2ijHMeS5QqHx2KP9aMBRhTDqANMnwVtdyw2TDYRmF8PjpvwUFcL1Et8Hj59S3gTSMcUQ5gAqTz3Wd8EsMTmF3DChhqPQBnU",
   "AWS_SES_KEY": process.env.AWS_SES_KEY,
   "AWS_SES_SECRET": process.env.AWS_SES_SECRET,
-  "CONTACT_EMAIL": process.env.CONTACT_EMAIL || "x1gnc0d3@naver.com",
-  "SITE_URL": process.env.SITE_URL || "http://localhost:3841",
+  "CONTACT_EMAIL": process.env.CONTACT_EMAIL || "soso4141kk@gmail.com",
+  "SITE_URL": process.env.SITE_URL || "https://localhost",
   "ENC_KEY": process.env.ENC_KEY || "devkey",
   "SIGNING_SECRET": process.env.SIGNING_SECRET || "secret",
   "BANKROLL_OFFSET": parseInt(process.env.BANKROLL_OFFSET) || 0,
@@ -28,7 +28,7 @@ module.exports = {
   "BITCOIND_USER": process.env.BITCOIND_USER,
   "BITCOIND_PASS": process.env.BITCOIND_PASS,
   "BITCOIND_CERT": process.env.BITCOIND_CERT  || '',
-  "PORT":  process.env.PORT || 3841,
+  "PORT":  process.env.PORT || 80,
   "MINING_FEE": process.env.MINING_FEE || 10000,
   "BUILD": prodConfig
 };

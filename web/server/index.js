@@ -2,6 +2,7 @@ var fs = require('fs');
 
 var express = require('express');
 var http = require('http');
+const https = require('https');
 var assert = require('assert');
 var compression = require('compression');
 var path = require('path');
@@ -171,6 +172,10 @@ routes(app);
 app.use(errorHandler);
 
 /**  Server **/
+// const options = {
+//   key: fs.readFileSync('certi/private-key.key').toString(),
+//   cert: fs.readFileSync('certi/csr.pem').toString()
+// };
 var server = http.createServer(app);
 var io = socketIO(server); //Socket io must be after the lat app.use
 io.use(ioCookieParser);
@@ -215,7 +220,7 @@ io.use(function(socket, next) {
 var chatServer = new Chat(io);
 
 server.listen(config.PORT, function() {
-    console.log('Listening on port ', config.PORT);
+    console.log('Listening on portt ', config.PORT);
 });
 
 /** Log uncaught exceptions and kill the application **/

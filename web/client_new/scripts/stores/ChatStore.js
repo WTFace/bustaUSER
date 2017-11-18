@@ -13,7 +13,7 @@ define([
 ) {
     var CHANGE_EVENT = 'change';
 
-    var _height = 253;
+    var _height = 223;
 
     /** How to display the bots on the chat **/
     var _botsDisplayMode = Clib.localOrDef('botsDisplayMode', 'normal'); //normal || greyed || none
