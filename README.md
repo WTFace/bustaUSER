@@ -1,2 +1,0 @@
-# bustaUSER
-web and game
