@@ -1,0 +1,69 @@
+{{##def.page_title = 'Support' #}}
+
+{{##def.content:
+<script type="text/javascript">
+    function logout() {
+        if (document.getElementById('logout') ) {
+            if (confirm("Are you sure you want to log out?")) {
+                document.getElementById("logout").submit();
+            }
+        }
+    }
+</script>
+<form action="/logout" method="post" id='logout'></form>
+<div class="my-account" style="width:60%;margin:auto;">
+
+    <div class="settings" >
+        <div class="my-account-nav">
+            <ul class="menu">
+                <li>
+                   <a href="/account">내 계정</a>
+                </li>
+                <li>
+                    <a href="/security">보안</a>
+                </li>
+                <li>
+                    <a href="/deposit">충전</a>
+                </li>
+                <li>
+                    <a href="/withdraw">환전</a>
+                </li>
+                <li>
+                    <a href="/note">쪽지</a>
+                </li>
+                <li>
+                    <a href="/support">고객센터</a>
+                </li>
+                <li>
+                    <a onclick="logout();">
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="my-account-content">
+            <h5><b>도움이 필요하신가요?</b></h5>
+                <hr>
+                <div class="row contact">
+                    <form action="/support" id="contact" method="post">
+
+                        <label for="title">제목</label>
+                        <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required=""/>
+                        <input type="hidden" id="uname" name="uname" value="{{!it.user.username}}" required=""/ readonly>
+                        <input type="hidden" id="pnum" name="pnum" value="{{!it.user.email}}" required=""/ readonly>
+
+
+
+                        <label for="message">내용</label>
+                        <textarea rows="10" id="message" name="message" placeholder="내용을 입력하세요." required> </textarea>
+                        <input type="submit" class="border-button right blue" value="보내기"/>
+                        <input type="hidden" id="idx" name="idx" value="{{!it.id}}" required=""/ readonly>
+                    </form>
+
+                </div>
+
+        </div>
+    </div>
+</div>
+#}}
+{{#def.include('./template/main_new')}}
