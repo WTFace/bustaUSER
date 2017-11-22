@@ -42,17 +42,19 @@
          });
       });
    }
-   function validateSMS(){
-    if ($("#codeRandom").val()!= codeRandom) {
-        $("#sms_val").val('불일치').css("color","tomato").css("font-weight","bold")
-    }else{
-        $("#sms_val").val('일치').css("color","green").css("font-weight","bold")
-    }
+    function validateSMS(){
+        if ($("#codeRandom").val()!= codeRandom) {
+            $("#sms_val").val('불일치').css("color","tomato").css("font-weight","bold")
+        }else{
+            $("#sms_val").val('일치').css("color","green").css("font-weight","bold")
+        }
    }
 
- 
- function submituser(){
-         
+    function submituser(){
+        if ($("#sms_val").val()!=='일치') {
+            alert('인증코드를 확인하세요');
+            return false;
+        }
         var frmData = document.frmData ;
         frmData.target = "_self";
         frmData.action = "/register";
