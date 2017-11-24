@@ -129,12 +129,7 @@ define([
                         );
                         messageClass = 'advice';
                         break;
-                    case 'collect':
-                        messageContent = D.span(null,
-                            D.a({ href: '/request' }, 'Collect your two free bits!')
-                        );
-                        messageClass = 'collect';
-                        break;
+                    
                     default:
                         messageContent = null;
                         messageClass = 'hide';
