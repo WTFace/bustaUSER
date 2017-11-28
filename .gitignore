@@ -1,10 +1,14 @@
 .env
 web/config/build-config.json
 web/node_modules
+web/client_new/node_modules
 .*.swp
 game/node_modules
 build/
 .*.swp
 .env
-
-
+web/views/index.html
+web/views/faq.html
+web/views/template
+web/client_new/scripts/components/TopBar.js
+web/client_new/scripts/constants/AppConstants.js

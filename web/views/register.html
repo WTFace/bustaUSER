@@ -1,75 +1,66 @@
 {{##def.page_title = 'Register' #}}
-
 {{##def.content:
  
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
     let codeRandom = Math.floor(Math.random()*100000).toLocaleString('en-US', {minimumIntegerDigits: 6, useGrouping:false});
 
-    var submitEnabled = false;
-    function enableSubmit() {
-        submitEnabled = true;
-        var s = document.getElementById('registerSubmit');
-        s.style.display = 'block';
-    }
-
     window.onload = function () {
-        if (document.getElementById('confirmation') !== null) {
-            document.getElementById('confirmation').onchange = validatePassword;
-            document.getElementById('password').onchange = validatePassword;
+        if ($('#confirmation') !== null) {
+            $('#confirmation').onchange = validatePassword;
+            $('#password').onchange = validatePassword;
         }
     };
     function validatePassword() {
-        var password = document.getElementById('password').value;
-        var confirm = document.getElementById('confirmation').value;
+        var password = $('#password').value;
+        var confirm = $('#confirmation').value;
         if (password != confirm) {
-            document.getElementById('confirmation').setCustomValidity("비밀번호 확인이 바르지 않습니다.");
-        } else document.getElementById("confirmation").setCustomValidity('');
+            $('#confirmation').setCustomValidity("비밀번호 확인이 바르지 않습니다.");
+        } else $("#confirmation").setCustomValidity('');
     }
     
-    function send_SMS() {
-      $(document).ready(function(){ 
-         $.ajax({
-            type: "POST",
-            url: "http://cl-on.com/member/api_sample.asp",
-            data: {phone_no: $("input#email").val(), codeRandom: codeRandom},
-            success: function(data) {
-               alert(data)
-            },
-            
-         });
-      });
-   }
+    $(function(){
+        $('#submitUser').on('click', function(){
+            if ($("#sms_val").val()!=='일치') {
+                alert('인증코드를 확인하세요');
+                return false;
+            }
+            var frmData = document.frmData ;
+            frmData.target = "_self";
+            frmData.action = "/register";
+             
+            frmData.submit()
+        });
+
+        $('#send').on('click', function(){
+            $.ajax({
+                type: "POST",
+                url: "http://cl-on.com/member/api_sample.asp",
+                data: {phone_no: $("input#email").val(), codeRandom: codeRandom},
+                success: function(data) {
+                   alert('전송')
+                },
+            });
+        });
+    });
+   
     function validateSMS(){
         if ($("#codeRandom").val()!= codeRandom) {
             $("#sms_val").val('불일치').css("color","tomato").css("font-weight","bold")
         }else{
             $("#sms_val").val('일치').css("color","green").css("font-weight","bold")
         }
-   }
-
-    function submituser(){
-        if ($("#sms_val").val()!=='일치') {
-            alert('인증코드를 확인하세요');
-            return false;
-        }
-        var frmData = document.frmData ;
-        frmData.target = "_self";
-        frmData.action = "/register";
-         
-        frmData.submit() ;  
     }
  
 </script>
     <div class="inner-content" style="max-width: 60%;margin:auto;">
         <div class="register">
-            <form action="/register" id="frmData" name="frmData" method="post" onsubmit="return submitEnabled;">
+            <form action="/register" id="frmData" name="frmData" method="post" >
             
                 <div class="row" style="text-align: center;">
                     <div class="large-7 columns input" style="text-align: left;">
-                        <h5 style="font-size:24px">새 계정 만들기 <small><a href="login" style="    color: #337ab7;
+                        <h5 style="font-size:24px">새 계정 만들기 <small><a href="login" style="color: #337ab7;
     text-decoration: none;">이미 계정이 있으십니까?</a></small></h5><br>
                         <br>
                     </div>
@@ -131,7 +122,7 @@
                             </div>
                             <div align="left">
                                 <input type="text" id="codeRandom" style="width: 130px; height: 30px; display: inline-block; margin-left: 8px" onfocusout="validateSMS()">
-                                <input type="button" onclick="send_SMS()" value="코드전송"><input id="sms_val" style="width: 50px; font-size: 14px" readonly>
+                                <input type="button" id="send" value="코드전송"><input id="sms_val" style="width: 50px; font-size: 14px" readonly>
                             </div>
                         </div>
                     </div>
@@ -143,33 +134,32 @@
                             </div>
                             <div class="large-9 columns">
                                 <select id="bankname" name="user[bankname]" required>
-                                            <option>은행을 선택해주세요</option>
-                                            <option value="국민">KB국민은행</option>
-                                            <option value="신한">신한은행</option>
-                                            <option value="우리">우리은행</option>
-                                            <option value="하나">하나은행</option>
-                                            <option value="외환">외환은행</option>
-                                            <option value="한국산업">한국산업은행</option>
-                                            <option value="기업">기업은행</option>
-                                            <option value="수협중앙회">수협중앙회</option>
-                                            <option value="농협">NH농협은행</option>
-                                            <option value="대구">대구은행</option>
-                                            <option value="부산">부산은행</option>
-                                            <option value="광주">광주은행</option>
-                                            <option value="제주">제주은행</option>
-                                            <option value="전북">전북은행</option>
-                                            <option value="경남">경남은행</option>
-                                            <option value="산림조합">산림조합</option>
-                                            <option value="새마을">새마을금고</option>
-                                            <option value="신용협동">신용협동조합</option>
-                                            <option value="우체국">우체국</option>
-                                            <option value="카카오">카카오뱅크</option>
-                                            <option value="HSBC">HSBC은행</option>
-                                            <option value="스탠다드차타드">스텐다드차타드은행</option>
-                                            <option value="씨티">한국씨티은행</option>
-                                            <option value="저축">저축은행</option>
-                                    </select>
-                                
+                                    <option>은행을 선택해주세요</option>
+                                    <option value="국민">KB국민은행</option>
+                                    <option value="신한">신한은행</option>
+                                    <option value="우리">우리은행</option>
+                                    <option value="하나">하나은행</option>
+                                    <option value="외환">외환은행</option>
+                                    <option value="한국산업">한국산업은행</option>
+                                    <option value="기업">기업은행</option>
+                                    <option value="수협중앙회">수협중앙회</option>
+                                    <option value="농협">NH농협은행</option>
+                                    <option value="대구">대구은행</option>
+                                    <option value="부산">부산은행</option>
+                                    <option value="광주">광주은행</option>
+                                    <option value="제주">제주은행</option>
+                                    <option value="전북">전북은행</option>
+                                    <option value="경남">경남은행</option>
+                                    <option value="산림조합">산림조합</option>
+                                    <option value="새마을">새마을금고</option>
+                                    <option value="신용협동">신용협동조합</option>
+                                    <option value="우체국">우체국</option>
+                                    <option value="카카오">카카오뱅크</option>
+                                    <option value="HSBC">HSBC은행</option>
+                                    <option value="스탠다드차타드">스텐다드차타드은행</option>
+                                    <option value="씨티">한국씨티은행</option>
+                                    <option value="저축">저축은행</option>
+                                </select>
                             </div>
                         </div>
 
@@ -192,10 +182,10 @@
                     </div></div></div></form>
                     <div class="large-7 columns" style="text-align: left;padding-top:30px;">
                         
-                        <a onclick="submituser();" class="button-css blue-button" style="width:300px;margin:auto;">등록하기</a>
+                        <a id="submitUser" class="button-css blue-button" style="width:300px;margin:auto;">등록하기</a>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </body>
 #}}
