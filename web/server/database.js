@@ -132,14 +132,14 @@ exports.createUser = function(username, password, email, ipAddress, userAgent, c
                                 // if (err.code === '23505')
                                 //     return callback('USERNAME_TAKEN2'+username+email+password+code+bankname+banknum+bankowner);
                                 // else
-                                    return callback(err);
+                                    return callback(err); //wtf is 23505
                                 }
 
                             assert(data.rows.length === 1);
                             var user = data.rows[0];
 
                             createSession(client, user.id, ipAddress, userAgent, false, callback);
-                            }
+                        }
                     );
 
                 });
