@@ -1,8 +1,7 @@
 .env
 web/config/build-config.json
-web/node_modules
+web/client_new/node_modules
 .*.swp
-game/node_modules
 build/
 .*.swp
 .env
