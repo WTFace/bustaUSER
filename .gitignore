@@ -7,6 +7,6 @@ build/
 .env
 web/views/index.html
 web/views/faq.html
-web/views/template
+web/views/template/head*.html
 web/client_new/scripts/components/TopBar.js
 web/client_new/scripts/constants/AppConstants.js
