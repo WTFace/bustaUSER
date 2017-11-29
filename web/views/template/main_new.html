@@ -19,7 +19,7 @@
     <div class="warning-wrap">
         {{!it.user.error}}
     </div>
-    {{??it.user.advice == 'new'}}
+    <!-- {{??it.user.advice == 'new'}}
     <div class="success-wrap">
         Welcome to bustabit.com, to start you have 2 free bits, bits
         <a href="/request">you can request them here</a> or you can just watch the current games... have fun :D
@@ -32,7 +32,7 @@
     {{?? it.user.advice}}
     <div class="success-wrap">
         {{!it.user.advice}}
-    </div>
+    </div> -->
     {{??it.user && it.user.balance_satoshis < 100 }}
     {{?it.user.eligible == true}}
     {{?}}
