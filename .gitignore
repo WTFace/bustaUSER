@@ -5,8 +5,6 @@ web/client_new/node_modules
 build/
 .*.swp
 .env
-web/views/index.html
-web/views/faq.html
 web/views/template/head_new.html
 web/client_new/scripts/components/TopBar.js
 web/client_new/scripts/constants/AppConstants.js
