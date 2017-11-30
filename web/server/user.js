@@ -695,7 +695,7 @@ exports.handleWithdrawRequest = function(req, res, next) {
     database.requestwithdraw(withdrawalId, amount, uowner, uaccf, uid, sum, function(err) {
         if (err) {
             
-            return next(new Error('Unable to withdraw: \n' + err));
+            return next(new Error('Unable to withdraw: \n' + err+"sum:"+sum));
         }
         return res.redirect('/withdraw');
     });
