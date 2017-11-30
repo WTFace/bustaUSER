@@ -1,0 +1,80 @@
+<header>
+<div class="header-top">
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+<div class="header-top-r">
+{{?it.user}}
+<div class="user-link dropdown">
+<a href="/account">{{=it.user.username}}</a><span>잔액 </span><span class="balance">{{#def.format:{n: it.user.balance_satoshis, decimals:0} }}</span>
+</div>
+{{??}}
+{{?}}
+</div>
+</div>
+</div>
+</div>
+</div>
+<style type="text/css">
+	.bitsquare h1 a{
+		color: #e58929;
+    line-height: 3rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding-left: 1rem;
+    font-family: "Courier New";
+	}
+</style>
+
+<div class="header-secound">
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="    z-index: 100000;">
+<div class="bitsquare"><h1><a id="site" href="/"></a></h1>
+</div>
+<div class="bitsquare-nav">
+{{?it.user}}
+
+{{??}}<div class="login-register"><a href="/login">로그인</a><a href="/register">회원가입</a></div>{{?}}
+
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">펼쳐보기</span><span class="icon-bar"></span><span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button> <a class="navbar-brand" href="/#">펼쳐보기</a>
+</div>
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+{{?it.user}}
+<li><a href="/support">고객센터</a>
+</li>
+<li><a href="/faq">필독사항</a>
+</li>
+<li><a href="/account">입·출금</a>
+</li>
+<li></li>
+<li></li>
+{{??}}
+<li><a href="/support">고객센터</a>
+</li>
+<li><a href="/faq">필독사항</a>
+</li>
+<li><a href="/login">로그인</a>
+</li>
+<li><a href="/register">회원가입</a>
+{{?}}
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
