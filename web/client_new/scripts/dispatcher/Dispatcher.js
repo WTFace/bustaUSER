@@ -1,14 +1,3 @@
-/*
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule Dispatcher
- * @typechecks
- */
 
 define(['lib/invariant'], function(invariant) {
 
@@ -118,7 +107,6 @@ define(['lib/invariant'], function(invariant) {
   /**
    * Registers a callback to be invoked with every dispatched payload. Returns
    * a token that can be used with `waitFor()`.
-   *
    * @param {function} callback
    * @return {string}
    */
@@ -130,7 +118,6 @@ define(['lib/invariant'], function(invariant) {
 
   /**
    * Removes a callback based on its token.
-   *
    * @param {string} id
    */
   Dispatcher.prototype.unregister=function(id) {"use strict";
@@ -244,8 +231,6 @@ define(['lib/invariant'], function(invariant) {
     this.$Dispatcher_isDispatching = false;
   };
 
-
   return Dispatcher;
-
 
 });

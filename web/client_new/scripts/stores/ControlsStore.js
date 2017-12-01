@@ -14,7 +14,7 @@ define([
     var CHANGE_EVENT = 'change';
 
     //Bet Size
-    var _betSize = Clib.localOrDef('betSize', '0');
+    var _betSize = Clib.localOrDef('betSize', '1000');
     var _betInvalid=false; //false || string error message
     var bet = Clib.parseBet(_betSize);
     if(bet instanceof Error)

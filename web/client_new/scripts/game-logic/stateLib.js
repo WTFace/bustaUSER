@@ -76,9 +76,6 @@ define([
         //    return this.notPlaying(engine) && !this.isBetting(engine);
         //},
 
-        /** ====== Controls Store ====== **/
-
-
         /** Parse the bet string in bits and returns a integer **/
         parseBet: function(betStringBits) {
           return parseInt(betStringBits.replace(/k/g, '000')) * 100;

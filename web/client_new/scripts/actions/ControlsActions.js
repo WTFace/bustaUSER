@@ -47,8 +47,6 @@ define([
                 autoCashOut: autoCashOut
             });
         }
-
-
     };
 
     return ControlsActions;

@@ -48,7 +48,10 @@ define([
             var bet = parseInt(betString.replace(/k/g, '000'));
 
             if (bet * 100 > AppConstants.Engine.MAX_BET)
-                return new Error('The bet must be less no more than ' + formatSatoshis(AppConstants.Engine.MAX_BET) + ' bits');
+                return new Error('The bet must be no more than ' + formatSatoshis(AppConstants.Engine.MAX_BET) + ' krw');
+            if (bet < 100) {
+                return Error('최소 배팅금: 100 krw');
+            }
 
             if (_.isNaN(bet)) {
                             return 0
