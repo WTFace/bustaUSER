@@ -65,18 +65,16 @@
 </tbody>
 </table>
 </div>
-            
-
-            <br>
-            {{?typeof it.user.eligible !== 'number' }}
-                {{?it.user.balance_satoshis < 100}}
-                    <a class="border-button right green" href="/request" style="min-width:100% !important;width:100%">무료머니 받기!</a>
-                {{?}}
-            {{??}}
-                <div class="success bits">이미 무료머니를 받으셨습니다! 무료머니를 받으려면 {{=it.user.eligible}} 분 기다리셔야 합니다.</div>
+<br>
+        <!-- {{?typeof it.user.eligible !== 'number' }}
+            {{?it.user.balance_satoshis < 100}}
+                <a class="border-button right green" href="/request" style="min-width:100% !important;width:100%">무료머니 받기!</a>
             {{?}}
-        </div>
+        {{??}}
+            <div class="success bits">이미 무료머니를 받으셨습니다! 무료머니를 받으려면 {{=it.user.eligible}} 분 기다리셔야 합니다.</div>
+        {{?}} -->
     </div>
-    </div>
+</div>
+</div>
 #}}
 {{#def.include('./template/main_new')}}
