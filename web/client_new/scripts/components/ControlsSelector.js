@@ -57,10 +57,10 @@ define([
             return D.div({ id: 'controls-selector-container' },
                 D.div({ className: 'buttons-container noselect ' + this.props.controlsSize },
                     D.div({ className: 'button-holder' + (this.state.selectedControl === 'manual'? ' tab-active' : ''), onClick: this._selectControl('manual') },
-                        D.a(null,  'Manual' )
+                        D.a(null,  '수동' )
                     ),
                     D.div({ className: 'button-holder' + (this.state.selectedControl === 'strategy'? ' tab-active' : ''), onClick: this._selectControl('strategy') },
-                        D.a(null,  'Auto' )
+                        D.a(null,  '자동' )
                     )
                 ),
 

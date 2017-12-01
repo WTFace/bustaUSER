@@ -87,8 +87,8 @@ define([
                 D.div({ className: 'control-buttons' },
                     D.span({ className: 'strategy-invalid-data' }, this.state.invalidData || !this.state.engine.username),
                     D.div({ className: 'buttons-container' },
-                        D.button({ className: 'strategy-start', onClick: self._runStrategy, disabled: this.state.active || this.state.invalidData || !this.state.engine.username }, 'RUN!'),
-                        D.button({ className: 'strategy-stop', onClick: self._stopStrategy, disabled: !this.state.active }, 'STOP'),
+                        D.button({ className: 'strategy-start', onClick: self._runStrategy, disabled: this.state.active || this.state.invalidData || !this.state.engine.username }, '실행'),
+                        D.button({ className: 'strategy-stop', onClick: self._stopStrategy, disabled: !this.state.active }, '중지'),
                         D.select({ className: 'strategy-select', value: this.state.selectedStrategy,  onChange: self._selectStrategy, ref: 'strategies', disabled: this.state.active }, strategiesOptions)
                     )
                 )

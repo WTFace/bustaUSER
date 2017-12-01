@@ -130,7 +130,7 @@ define([
             var betContainer = D.div({ className: 'bet-container' , key: 'ci-1' },
 
                 D.div({ className: 'bet-input-group' + (this.state.betInvalid? ' error' : '') },
-                    D.span({ className: '' }, 'Bet'),
+                    D.span({ className: '' }, 'Bet', D.span({className:'minMax'}, "  (최소:100 최대:100만)")),
                     D.input({
                         type: 'text',
                         name: 'bet-size',
