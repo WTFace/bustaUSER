@@ -6,5 +6,5 @@ build/
 .*.swp
 .env
 web/views/template/head_new.html
-web/client_new/scripts/components/TopBar.js
 web/client_new/scripts/constants/AppConstants.js
+web/client_new/scripts/components/Logo.js

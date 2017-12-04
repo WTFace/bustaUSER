@@ -28,7 +28,6 @@ define([
     GameSettingsStore
 ){
     var TopBar = React.createFactory(TopBarClass);
-    //var SpaceWrap = React.createFactory(SpaceWrapClass);
     var ChartControls = React.createFactory(ChartControlsClass);
     var TabsSelector = React.createFactory(TabsSelectorClass);
     var Players = React.createFactory(PlayersClass);
@@ -152,7 +151,7 @@ define([
                 ) : null;
 
             return D.div({ id: 'game-inner-container' },
-
+                
                 TopBar({
                     isMobileOrSmall: this.state.isMobileOrSmall
                 }),
@@ -181,7 +180,6 @@ define([
                                 )
                             )
                         )
-
                     ),
                     rightContainer
                 )

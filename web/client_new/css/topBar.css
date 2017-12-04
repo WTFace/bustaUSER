@@ -36,18 +36,21 @@
     margin-right: 2rem;
     cursor: pointer;
 }
-@media handheld, only screen and (max-width: 767px) {
-    #top-bar .toggle-view {
-        margin-right: 0.5rem;
-    }
-}
+
 
 #top-bar .toggle-view a {
     border: 2px solid grey;
     padding: 2px;
 }
 @media handheld, only screen and (max-width: 767px) {
-    
+    #top-bar .toggle-view {
+        margin-right: 0.2rem;
+    }
+}
+@media handheld, only screen and (max-width: 767px) {
+    /*#top-bar .title h1 {
+        font-size: 0.9em
+    }*/
     #top-bar .toggle-view a {
         display: none;
     }

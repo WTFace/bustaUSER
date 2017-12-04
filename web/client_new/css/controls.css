@@ -239,6 +239,9 @@
 /** ================ Small Screen look ================ **/
 
 @media handheld, only screen and (max-width: 767px) {
+    span.minMax{
+        display: none
+    }
     .money-btn button{
         margin: 4px 10px 3px 0;
         height: 23px;
