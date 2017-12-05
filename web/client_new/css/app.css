@@ -285,6 +285,7 @@ table {
 
 .green {
     border: 3px solid #7cba00;
+    vertical-align: sub;
 }
 
 
