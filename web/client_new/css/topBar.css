@@ -21,8 +21,13 @@
     padding-left: 1rem;
     font-family: "Courier New";
 }
-
-#top-bar .user-login {
+.topmenu{
+    margin-right: 30px
+}
+#top-bar .topmenu a{
+    margin-right: 15px;
+}
+#top-bar .user-login, .topmenu{
     float: right;
     line-height: 40px;
 }
@@ -48,9 +53,9 @@
     }
 }
 @media handheld, only screen and (max-width: 767px) {
-    /*#top-bar .title h1 {
-        font-size: 0.9em
-    }*/
+    .topmenu{
+        display:none;
+    }
     #top-bar .toggle-view a {
         display: none;
     }

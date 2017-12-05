@@ -108,7 +108,11 @@ define([
                 ),
                 D.div({ className: 'full-screen noselect', onClick: this._toggleFullScreen },
                 	 this.state.fullScreen? D.i({ className: 'fa fa-compress' }) : D.i({ className: 'fa fa-expand' })
-            	)
+            	),
+                D.div({className: 'topmenu'}, 
+                    D.a({href:'/support'}, '고객센터'),
+                    D.a({href:'/faq'}, '이용규정')
+                )
             )
         }
     });
