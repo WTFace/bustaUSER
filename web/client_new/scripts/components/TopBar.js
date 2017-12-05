@@ -86,11 +86,11 @@ define([
                 );
             } else {
                 userLogin = D.div({ className: 'user-login' },
-                    D.div({ className: 'register' },
-                        D.a({ href: '/register' }, '회원가입' )
-                    ),
                     D.div({ className: 'login' },
                         D.a({ href: '/login'}, 'Log in' )
+                    ),
+                    D.div({ className: 'register' },
+                        D.a({ href: '/register' }, '회원가입' )
                     )
                 );
             }

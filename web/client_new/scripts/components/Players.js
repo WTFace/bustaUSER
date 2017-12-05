@@ -244,9 +244,9 @@ define([
                         D.tr(null,
                             D.th(null, D.div({ className: 'th-inner' }, 'User')),
                             D.th(null, D.div({ className: 'th-inner' }, '@')),
-                            D.th(null, D.div({ className: 'th-inner' }, 'Bet')),
-                            D.th(null, D.div({ className: 'th-inner' }, 'Bonus')),
-                            D.th(null, D.div({ className: 'th-inner' }, 'Profit'))
+                            D.th(null, D.div({ className: 'th-inner' }, '배팅금')),
+                            D.th(null, D.div({ className: 'th-inner' }, '보너스')),
+                            D.th(null, D.div({ className: 'th-inner' }, '순이익'))
                         )
                     ),
                     tBody
