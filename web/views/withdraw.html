@@ -10,12 +10,7 @@
         }
     }
 
-    $(function(){
-        $("a#wdRequest").on('click',function(){
-            
-            location.href="/withdraw/request"
-        })
-    });
+
 </script>
 <form action="/logout" method="post" id='logout'></form>
 <div class="my-account" style="width:60%;margin:auto;">
@@ -76,6 +71,29 @@
         </div>
     </div>
 </div>
-
+<script>
+    $("a#wdRequest").on('click', function(){
+            if ({{=it.user.withdrawals.length}}) {
+                let curtime= new Date();
+                let lastReq = new Date("{{=it.user.last_req}}");
+                let firstReq = new Date("{{=it.user.first_req}}");
+                let elapsed3 = (curtime-lastReq)/3600000;
+                let elapsed24 = (curtime-firstReq)/3600000;
+                // alert(elapsed24);
+                if (elapsed24 >=24) {
+                    location.href="/withdraw/request";
+                    return false
+                }
+                if ({{=it.user.wd_cnt}}>=5 || elapsed3 <3) {
+                    alert('아직 환전신청할수 없습니다.')
+                }else{
+                    location.href="/withdraw/request"
+                }
+            
+            }else{
+               location.href="/withdraw/request" 
+            }
+        });
+</script>
 #}}
 {{#def.include('./template/main_new')}}
