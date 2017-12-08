@@ -292,49 +292,6 @@ exports.giveawayRequest = function(req, res, next) {
     });
 
 };
-
-/**
- * GET
- * Restricted API
- * Shows the account page, the default account page.
- **/
-exports.account = function(req, res, next) {
-    var user = req.user;
-    assert(user);
-
-    var tasks = [
-        function(callback) {
-            database.getDepositsAmount(user.id, callback);
-        },
-        function(callback) {
-            database.getWithdrawalsAmount(user.id, callback);
-        },
-        function(callback) {
-            database.getGiveAwaysAmount(user.id, callback);
-        },
-        function(callback) {
-            database.getUserNetProfit(user.id, callback)
-        }
-    ];
-
-    async.parallel(tasks, function(err, ret) {
-        if (err)
-            return next(new Error('Unable to get account info: \n' + err));
-
-        var deposits = ret[0];
-        var withdrawals = ret[1];
-        var giveaways = ret[2];
-        var net = ret[3];
-        user.deposits = !deposits.sum ? 0 : deposits.sum;
-        user.withdrawals = !withdrawals.sum ? 0 : withdrawals.sum;
-        user.giveaways = !giveaways.sum ? 0 : giveaways.sum;
-        user.net_profit = net.profit;
-        user.deposit_address = lib.deriveAddress(user.id);
-
-        res.render('account', { user: user });
-    });
-};
-
 /**
  * POST
  * Restricted API
@@ -633,23 +590,62 @@ exports.deposit = function(req, res, next) {
     });
 };
 
-/**
- * GET
- * Restricted API
- * Shows the withdrawal history
- **/
+exports.account = function(req, res, next) {
+    var user = req.user;
+    assert(user);
+
+    var tasks = [
+        function(callback) {
+            database.getDepositsAmount(user.id, callback);
+        },
+        function(callback) {
+            database.getWithdrawalsAmount(user.id, callback);
+        },
+        function(callback) {
+            database.getGiveAwaysAmount(user.id, callback);
+        },
+        function(callback) {
+            database.getUserNetProfit(user.id, callback)
+        }
+    ];
+
+    async.parallel(tasks, function(err, ret) {
+        if (err)
+            return next(new Error('Unable to get account info: \n' + err));
+
+        var deposits = ret[0];
+        var withdrawals = ret[1];
+        var giveaways = ret[2];
+        var net = ret[3];
+        user.deposits = !deposits.sum ? 0 : deposits.sum;
+        user.withdrawals = !withdrawals.sum ? 0 : withdrawals.sum;
+        user.giveaways = !giveaways.sum ? 0 : giveaways.sum;
+        user.net_profit = net.profit;
+        user.deposit_address = lib.deriveAddress(user.id);
+
+        res.render('account', { user: user });
+    });
+};
+
 exports.withdraw = function(req, res, next) {
     var user = req.user;
     assert(user);
 
-    database.getWithdrawals(user.id, function(err, withdrawals) {
-        if (err){
+    var tasks = [
+        function(callback) {
+            database.getWdReqCnt(user.id, callback);
+        },
+        function(callback) {
+            database.getWithdrawals(user.id, callback);
+        }];
+
+    async.parallel(tasks, function(err, ret) {
+        if(err)
             return next(new Error('Unable to get withdrawals: \n' + err));
-        }
-
         
-        user.withdrawals = withdrawals;
-
+        user.wd_cnt = ret[0];
+        user.withdrawals = ret[1];
+        
         res.render('withdraw', { user: user });
     });
 };
@@ -664,7 +660,7 @@ exports.handleWithdrawRequest = function(req, res, next) {
     assert(user);
     var realamount = req.body.amount * 100;
     var amount = req.body.amount;
-
+    var wdcnt = req.body.wdcnt;
     var uname = req.body.uname;
     var uacc = req.body.uacc;
     var uowner = req.body.uowner;
@@ -685,14 +681,14 @@ exports.handleWithdrawRequest = function(req, res, next) {
     assert(Number.isFinite(amount));
 
     var minWithdraw = config.MINING_FEE + 10000;
-
+    
     if (amount < 1000000)
         return res.render('withdraw-request', { user: user,  id: uuid.v4(), warning: '최소 10,000원 이상 환전해야합니다.'  });
     if (sum < 0)
         return res.render('withdraw-request', { user: user,  id: uuid.v4(), warning: '보유금액 이상으로는 환전할 수 없습니다.'  });
    
 
-    database.requestwithdraw(withdrawalId, amount, uowner, uaccf, uid, sum, function(err) {
+    database.requestwithdraw(withdrawalId, amount, uowner, uaccf, uid, sum, wdcnt, function(err) {
         if (err) {
             
             return next(new Error('Unable to withdraw: \n' + err+"sum:"+sum));

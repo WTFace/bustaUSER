@@ -9,6 +9,13 @@
             }
         }
     }
+
+    $(function(){
+        $("a#wdRequest").on('click',function(){
+            
+            location.href="/withdraw/request"
+        })
+    });
 </script>
 <form action="/logout" method="post" id='logout'></form>
 <div class="my-account" style="width:60%;margin:auto;">
@@ -42,28 +49,29 @@
             </ul>
         </div>
         <div class="my-account-content">
-            <a class="border-button right green" href="/withdraw/request">환전 신청하기</a>
+            <a class="border-button right green" id="wdRequest">환전 신청하기</a>
             <h5 >출금 내역</h5>
+            <span>신청횟수&nbsp;{{=it.user.wd_cnt}}</span>
             <hr>
             
                 <table>
-                        <thead>
+                    <thead>
+                        <tr>
+                            <td style="text-align: center;">단계</td>
+                            <td style="text-align: center;">금액</td>
+                            <td style="text-align: center;" class="show-for-medium-up">요청 시각</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{~it.user.withdrawals :withdraw:index}}
                             <tr>
-                                <td style="text-align: center;">단계</td>
-                                <td style="text-align: center;">금액</td>
-                                <td style="text-align: center;" class="show-for-medium-up">요청 시각</td>
+                                <td style="text-align: center;">{{=withdraw.step}}</td>
+                                <td style="text-align: center;">{{#def.format: {n: withdraw.amount, decimals: 0 } }}</td>
+                                <td style="text-align: center;" class="show-for-medium-up">{{=withdraw.requested}}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {{~it.user.withdrawals :withdraw:index}}
-                                <tr>
-                                    <td style="text-align: center;">{{=withdraw.step}}</td>
-                                    <td style="text-align: center;">{{#def.format: {n: withdraw.amount, decimals: 0 } }}</td>
-                                    <td style="text-align: center;" class="show-for-medium-up">{{=withdraw.requested}}</td>
-                                </tr>
-                            {{~}}
-                        </tbody>
-                    </table>
+                        {{~}}
+                    </tbody>
+                </table>
             
         </div>
     </div>

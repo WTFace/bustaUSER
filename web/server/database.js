@@ -174,16 +174,18 @@ exports.requestdeposit = function(depositId, amount, uowner, uaccf, uid, callbac
         callback(null);
     });
 };
-exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, callback) {
-
+exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, wdcnt, callback) {
+    let up_1st_req="";
     query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname) VALUES (2, $1, now(), 1, $5, $2, $3, $4, $6);', [amount, uowner, uaccf, depositId, uid, '신청'], function(err, res) {
         if(err) return callback(err);
 
         assert(res.rowCount === 1);
-        
     });
+    if (wdcnt==0) {
+        up_1st_req= ",first_req=now()"; //if wd_cnt is 0
+    }
 
-    query('UPDATE users set balance_satoshis = $2 where id = $1', [uid, sum], function(err, res) {
+    query('UPDATE users set balance_satoshis= $2, wd_cnt=wd_cnt+1'+up_1st_req+' where id= $1', [uid,sum],function(err, res) {
         if(err) return callback(err);
 
         assert(res.rowCount === 1);
@@ -356,7 +358,7 @@ exports.addRecoverId = function(userId, ipAddress, callback) {
 
 exports.getUserBySessionId = function(sessionId, callback) {
     assert(sessionId && callback);
-    query('SELECT * FROM users_view WHERE id = (SELECT user_id FROM sessions WHERE id = $1 AND ott = false AND expired > now())', [sessionId], function(err, response) {
+    query('SELECT * FROM users WHERE id = (SELECT user_id FROM sessions WHERE id = $1 AND ott = false AND expired > now())', [sessionId], function(err, response) {
         if (err) return callback(err);
 
         var data = response.rows;
@@ -628,18 +630,26 @@ exports.makeWithdrawal = function(userId, satoshis, withdrawalAddress, withdrawa
 
     }, callback);
 };
+exports.getWdReqCnt = function(userId, callback) {
+    assert(userId);
+    query("SELECT wd_cnt FROM users where id=$1",[userId], function(err, result){
+        if (err) return callback(err);
+        callback(null, result.rows[0].wd_cnt);
+    });
+};
 
 exports.getWithdrawals = function(userId, callback) {
     assert(userId && callback);
 
-    query("SELECT * FROM cash WHERE mode = 2 and uid = $1 AND value > 0 ORDER BY requested DESC", [userId], function(err, result) {
+    query("SELECT value,stname,requested, wd_cnt FROM cash JOIN users ON cash.uid = users.id WHERE mode = 2 and uid = $1 ORDER BY requested DESC", [userId], function(err, result) {
         if (err) return callback(err);
 
-        var data = result.rows.map(function(row) {
+        var data = result.rows.map(row=> {
            return {
-               amount: row.value,
+                amount: row.value,
                 step: row.stname,
-                requested: row.requested
+                requested: row.requested,
+                wd_cnt: row.wd_cnt
            };
         });
         callback(null, data);
@@ -684,8 +694,6 @@ exports.getNotes = function(userId, callback) {
 
 exports.confNotes = function(userId, callback) {
     assert(userId && callback);
-
-    
     query('UPDATE note Set confirmed = 1 WHERE uid = $1', [userId],
         function(err, result) {
            if (err) return callback(err);
@@ -702,14 +710,10 @@ exports.getDeposits = function(userId, callback) {
         if (err) return callback(err);
             
         var data = result.rows.map(function(row) {
-            
             return {
                 amount: row.value,
                 step: row.stname,
                 requested: row.requested
-                
-                
-
             };
             
         });

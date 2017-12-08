@@ -136,33 +136,6 @@ gulp.task('hash-js-old', function() {
     );
 });
 
-///** Get the hashed file names of config.js and app.css **/
-//var configFile = null;
-//gulp.task('get-file-names', function (callback) {
-//    fs.readFile('./build/build-config.json', function(err, data) {
-//        if (err)
-//            return callback(err);
-//
-//        configFile = JSON.parse(data);
-//        callback();
-//    });
-//});
-
-
-///** RequireJs Optimizer does not support an option to hash the name of the file, so we need to hash it and then replace the name of the source maps **/
-//gulp.task('replace-maps-name', function(){
-//
-//    var replaceStream = gulp.src('./build/scripts/' + configFile['config.js'], { base: './' })
-//        .pipe(replace('sourceMappingURL=config.js', 'sourceMappingURL=' + configFile['config.js']))
-//        .pipe(replace('sourceMappingURL=config.js.map', 'sourceMappingURL=' + configFile['config.js'] + '.map'))
-//        .pipe(gulp.dest('./'));
-//
-//    var mapStream = gulp.src('./build/scripts/config.js.map')
-//        .pipe(rename('scripts/'+ configFile['config.js'] + '.map'))
-//        .pipe(gulp.dest('./build'));
-//
-//    return merge(replaceStream, mapStream);
-//});
 
 
 /** ======================================== New Client ======================================== **/
