@@ -129,18 +129,21 @@ body {
 }
 
 .index .play-btn-cont {
-    width: 40%;
+    width: 50%;
     padding-top: 2rem;
     margin: auto;
     text-align: center;
 }
+.index .play-btn-cont .messanger{
+    margin-top: 10px;
+    width: 100%;
+    display: inline-flex;
+}
 
 .index .play-btn-cont .play {
-    /* padding-top: 2rem; */
-    display: block;
-    width: 100%;
-    /* top: calc(100% - 3em); */
-    line-height: 3em;
+    margin: 0 15px !important;
+    width: 80%;
+    line-height: 2.5em;
     text-align: center;
     color: white;
     background-color: rgba(243,150,47,1);
@@ -368,9 +371,6 @@ table {
     margin-top: 10px;
 }
 
-.settings {
-    height: 300px;
-}
 
 /* Account */
 .account {
@@ -445,8 +445,13 @@ table {
     }.index .play-btn-cont .play{
         line-height: 1em;
     }.index .title{
-        line-height: 2em;
-        font-size: 2em;
+        font-size: 1.5em;
+        line-height: 2rem;
+        margin-top: 0;
+    }.index .play-btn-cont{
+        width: 100%;
+    }.index .features{
+        margin-top: 0
     }
 }
 
