@@ -180,7 +180,7 @@ define([
                 D.div({ className: 'bet-input-group' + (this.state.cashOutInvalid? ' error' : '') },
                     D.span({ className: '' }, '자동출금'),
                     D.input({
-                        min: 1,
+                        min: 1.2,
                         step: 0.01,
                         value: self.state.cashOut,
                         type: 'number',

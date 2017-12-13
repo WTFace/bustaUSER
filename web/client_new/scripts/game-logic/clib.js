@@ -70,8 +70,8 @@ define([
             co = parseFloat(co);
             console.assert(!_.isNaN(co));
 
-            if(co < 1)
-                return new Error('The auto cash out amount should be bigger than 1');
+            if(co < 1.2)
+                return new Error('min 1.2');
             return co;
         },
 
