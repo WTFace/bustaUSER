@@ -23,7 +23,7 @@ $(function(){
                 location.href="/withdraw/request";
                 return false;
             }
-            if (({{=it.user.wd_cnt}}>=5 && elap<24) || elapsed3 <3) {
+            if (({{=it.user.wd_cnt}}>=5 && elapsed24<24) || elapsed3 <3) {
                 alert('아직 환전신청할수 없습니다.')
             }else{
                 location.href="/withdraw/request"
