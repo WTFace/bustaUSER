@@ -811,7 +811,7 @@ exports.confnote = function(req, res, next) {
         
         user.notes = notes;
 
-        res.render('confnote', { user: user });
+        res.render('note', { user: user });
     });
 };
 
