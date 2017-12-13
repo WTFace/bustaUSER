@@ -633,17 +633,17 @@ exports.withdraw = function(req, res, next) {
 
     var tasks = [
         function(callback) {
-            database.getWdReqCnt(user.id, callback);
+            database.setWdCnt(user.id, callback);
         },
         function(callback) {
             database.getWithdrawals(user.id, callback);
-        }];
+        },];
 
     async.parallel(tasks, function(err, ret) {
         if(err)
             return next(new Error('Unable to get withdrawals: \n' + err));
         
-        user.wd_cnt = ret[0];
+        
         user.withdrawals = ret[1];
         
         res.render('withdraw', { user: user });

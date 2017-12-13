@@ -635,18 +635,18 @@ exports.makeWithdrawal = function(userId, satoshis, withdrawalAddress, withdrawa
 
     }, callback);
 };
-exports.getWdReqCnt = function(userId, callback) {
+exports.setWdCnt = function(userId, callback) {
     assert(userId);
-    query("SELECT wd_cnt FROM users where id=$1",[userId], function(err, result){
+    query("UPDATE users SET wd_cnt=0 WHERE id=$1 AND extract(day from age(now(), first_req))>=1",[userId], function(err, result){
         if (err) return callback(err);
-        callback(null, result.rows[0].wd_cnt);
+        callback(null);
     });
 };
 
 exports.getWithdrawals = function(userId, callback) {
     assert(userId && callback);
 
-    query("SELECT value,stname,requested, wd_cnt FROM cash JOIN users ON cash.uid = users.id WHERE mode = 2 and uid = $1 ORDER BY requested DESC", [userId], function(err, result) {
+    query("SELECT value,stname,requested FROM cash JOIN users ON cash.uid = users.id WHERE mode = 2 and uid = $1 ORDER BY requested DESC", [userId], function(err, result) {
         if (err) return callback(err);
 
         var data = result.rows.map(row=> {
@@ -654,7 +654,6 @@ exports.getWithdrawals = function(userId, callback) {
                 amount: row.value,
                 step: row.stname,
                 requested: row.requested,
-                wd_cnt: row.wd_cnt
            };
         });
         callback(null, data);
