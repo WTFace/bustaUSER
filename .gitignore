@@ -8,3 +8,4 @@ build/
 web/views/template/head_new.html
 web/client_new/scripts/constants/AppConstants.js
 web/client_new/scripts/components/Logo.js
+web/client_new/img
