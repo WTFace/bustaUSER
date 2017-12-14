@@ -280,9 +280,9 @@ function createSession(client, userId, ipAddress, userAgent, remember, callback)
 
     var expired = new Date();
     if (remember)
-        expired.setFullYear(expired.getFullYear() + 10);
+        expired.setFullYear(expired.getFullYear() + 1);
     else
-        expired.setDate(expired.getDate() + 21);
+        expired.setDate(expired.getDate() + 1);
 
     client.query('INSERT INTO sessions(id, user_id, ip_address, user_agent, expired) VALUES($1, $2, $3, $4, $5) RETURNING id',
         [sessionId, userId, ipAddress, userAgent, expired], function(err, res) {
