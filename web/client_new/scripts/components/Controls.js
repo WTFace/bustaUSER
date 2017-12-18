@@ -140,7 +140,7 @@ define([
                             self._setBetSize(e.target.value);
                         }
                     }),
-                    D.span({ className: '' }, 'KRW'),
+                    D.span({ className: '' }, 'KRW')
                 ),
                 D.div({className: 'money-btn'},
                         D.button({
@@ -171,7 +171,7 @@ define([
                             onClick: function(){
                                 self._setBetSize('0')
                             }
-                        }, '초기화'),
+                        }, '초기화')
                     )
                 
             );

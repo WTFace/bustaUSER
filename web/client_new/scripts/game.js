@@ -11,7 +11,7 @@ define([
     var Game = React.createFactory(GameClass);
 
     Mousetrap.bind('backspace', function(e) {
-        if(!confirm('Are you sure you want to leave the site?')) {
+        if(!confirm('Are you sure you want to leave?')) {
             if (e.preventDefault) {
                 e.preventDefault();
             } else {
