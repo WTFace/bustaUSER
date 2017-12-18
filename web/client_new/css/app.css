@@ -452,6 +452,8 @@ table {
         width: 100%;
     }.index .features{
         margin-top: 0
+    }.popup_dialog{
+        display: none
     }
 }
 
