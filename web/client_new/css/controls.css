@@ -61,7 +61,7 @@
 
 #controls-inner-container .bet-input-group>input {
     line-height: 2em;
-    height: 2em;
+    height: 1.8em;
     width: 100%;
     outline: none;
     padding-left: 0.5rem;
@@ -268,7 +268,7 @@
     /** BET/AUTOCASH **/
 
     #controls-inner-container .bet-input-group>input, #controls-inner-container .bet-input-group>span {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 
     #controls-inner-container .bet-input-group>span:first-child {

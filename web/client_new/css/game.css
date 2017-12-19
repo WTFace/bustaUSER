@@ -196,8 +196,6 @@ html, body {
         font-size: 1rem;
     }#tabs-controls-col{
         height: 54%;
-    }#tabs-controls-col .cell-wrapper, #chart-controls-col .cell-wrapper{
-        height: 89%
     }
     #chart-controls-col.small {
         height: 20%;
