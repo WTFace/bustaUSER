@@ -56,7 +56,7 @@
                 <input style="display:none" type="password" name="fakepasswordremembered"/>
                 
                 <label for="amount">충전할 금액</label>
-                <input type="number" id="amount" name="amount" min="10000" step="5000" required/>
+                <input type="number" id="amount" name="amount" min="10000" step="1000" required/>
                 <input type="hidden" id="pncode" name="pncode" value="{{=it.user.pncode}}" min="10000" step="1000"/>
                 <input type="hidden" id="bankers" name="bankers" value="{{=it.user.bankname}}은행 {{=it.user.banknum}}   예금주명 : {{=it.user.bankowner}}" readonly/>
                 {{?it.user.mfa_secret}}
