@@ -11,8 +11,8 @@
     }
 $(function(){
     $("a#wdRequest").on('click', function(){
-
-        if ({{=it.user.withdrawals.length}}) {
+        location.href="/withdraw/request" 
+        /*if ({{=it.user.withdrawals.length}}) {
             let curtime= new Date();
             let lastReq = new Date("{{=it.user.last_req}}");
             let firstReq = new Date("{{=it.user.first_req}}");
@@ -31,7 +31,7 @@ $(function(){
         
         }else{
            location.href="/withdraw/request" 
-        }
+        }*/
     });
 })
 </script>
