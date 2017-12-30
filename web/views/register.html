@@ -5,7 +5,6 @@
   crossorigin="anonymous"></script>
 <script type="text/javascript">
     let codeRandom = Math.floor(Math.random()*100000).toLocaleString('en-US', {minimumIntegerDigits: 6, useGrouping:false});
-    alert(codeRandom);
     window.onload = function () {
         if ($('#confirmation') !== null) {
             $('#confirmation').onchange = validatePassword;
