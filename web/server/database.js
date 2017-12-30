@@ -184,18 +184,20 @@ exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, w
         up_1st_req= ",first_req=now()";
         wd_cnt_str="wd_cnt=1"
     }
-    query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname) VALUES (2, $1, now(), 1, $5, $2, $3, $4, $6);', [amount, uowner, uaccf, depositId, uid, '신청'], function(err, res) {
-        if(err) return callback(err);
 
-        assert(res.rowCount === 1);
-        query('UPDATE users set balance_satoshis= $2, '+wd_cnt_str+up_1st_req+',last_req=now() where id= $1', [uid,sum],function(err, res2) {
+    getClient(function(client, callback) {
+        client.query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname) VALUES (2, $1, now(), 1, $5, $2, $3, $4, $6);', [amount, uowner, uaccf, depositId, uid, '신청'], function(err, res) {
             if(err) return callback(err);
-
-            assert(res2.rowCount === 1);
-            callback(null);
+            if (res.rowCount !== 1)
+                return callback(new Error('Unexpected withdrawal row count: \n' + res));
+    
+            client.query('UPDATE users set balance_satoshis= $2, '+wd_cnt_str+up_1st_req+',last_req=now() where id= $1', [uid,sum],function(err, res2) {
+                if(err) return callback(err);
+                callback(null);
+            });
         });
-    });
 
+    }, callback);
     
 };
 
