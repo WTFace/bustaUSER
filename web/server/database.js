@@ -125,22 +125,24 @@ exports.createUser = function(username, password, email, ipAddress, userAgent, c
                             assert(data.rows.length === 1);
                             if (data.rows[0].countcode === 0)
                              return callback('NOT_DEFINED_PARTNERCODE');
-                    client.query('INSERT INTO users(username, email, password, pncode, bankname, banknum, bankowner, status) VALUES($1, $2, $3, $4, $5, $6, $7, 1) RETURNING id',
-                        [username, email, password, code, bankname, banknum, bankowner],
-                        function(err, data) {
-                            if (err)  {
-                                // if (err.code === '23505')
-                                //     return callback('USERNAME_TAKEN2'+username+email+password+code+bankname+banknum+bankowner);
-                                // else
-                                    return callback(err); //wtf is 23505
-                                }
-
+                    client.query('SELECT COUNT(*) count FROM phone where contact= $1',[email],
+                        function(err, data){
+                            if (err) return callback(err);
                             assert(data.rows.length === 1);
-                            var user = data.rows[0];
+                            if (data.rows[0].count > 0)
+                                return callback('Blocked Number');
+                        client.query('INSERT INTO users(username, email, password, pncode, bankname, banknum, bankowner, status) VALUES($1, $2, $3, $4, $5, $6, $7, 1) RETURNING id',
+                            [username, email, password, code, bankname, banknum, bankowner],
+                            function(err, data) {
+                                if (err) return callback(err); //wtf is 23505
 
-                            createSession(client, user.id, ipAddress, userAgent, false, callback);
-                        }
-                    );
+                                assert(data.rows.length === 1);
+                                var user = data.rows[0];
+
+                                createSession(client, user.id, ipAddress, userAgent, false, callback);
+                            }
+                        );
+                    });
 
                 });
             });

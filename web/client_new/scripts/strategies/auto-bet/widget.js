@@ -88,7 +88,12 @@ define([
                 ),
                 D.div({ className: 'stra-max-bet-stop' },
                     D.span({ className: 'bet-title' }, '배팅중지 :'),
-                    D.input({ type: 'text', ref: 'max_bet_stop', onChange: this.updateMaxBetStop, value: this.state.maxBetStop, disabled: this.state.active }),
+                    D.input({ 
+                        type: 'text', 
+                        ref: 'max_bet_stop', 
+                        onChange: this.updateMaxBetStop, 
+                        value: this.state.maxBetStop, 
+                        disabled: this.state.active }),
                     D.span(null, 'KRW')
                 ),
                 D.div({ className: 'stra-on-loss' },
