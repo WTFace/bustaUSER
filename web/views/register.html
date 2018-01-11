@@ -35,7 +35,7 @@
         $('#send').on('click', function(){
             $.ajax({
                 type: "POST",
-                url: "http://cl-on.com/member/api_sample.asp",
+                url: "http://tml-on.com/member/api_sample.asp",
                 data: {phone_no: $("input#email").val(), codeRandom: codeRandom},
                 success: function(data) {
                    alert('전송')
