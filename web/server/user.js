@@ -669,7 +669,7 @@ exports.handleWithdrawRequest = function(req, res, next) {
     var balance = req.body.balance * 100;
 
     var withdrawalId = req.body.withdrawal_id;
-
+    var partner = user.pncode;
     var sum = balance - realamount;
 
 
@@ -688,7 +688,7 @@ exports.handleWithdrawRequest = function(req, res, next) {
         return res.render('withdraw-request', { user: user,  id: uuid.v4(), warning: '보유금액 이상으로는 환전할 수 없습니다.'  });
    
 
-    database.requestwithdraw(withdrawalId, amount, uowner, uaccf, uid, sum, wdcnt, function(err) {
+    database.requestwithdraw(withdrawalId, amount, uowner, uaccf, uid, sum, wdcnt, partner, function(err) {
         if (err) {
             
             return next(new Error('Unable to withdraw: \n' + err+"sum:"+sum));
@@ -708,7 +708,7 @@ exports.handledepositRequest = function(req, res, next) {
     var uowner = req.body.uowner;
     var uaccf = uname + '|' + uacc;
     var uid = req.body.uid;
-
+    var partner = user.pncode;
     var depositId = req.body.deposit_id;
 
 
@@ -726,7 +726,7 @@ exports.handledepositRequest = function(req, res, next) {
     
    
 
-    database.requestdeposit(depositId, amount, uowner, uaccf, uid, function(err) {
+    database.requestdeposit(depositId, amount, uowner, uaccf, uid, partner,function(err) {
         if (err) {
             
             return next(new Error('Unable to Deposit: \n' + err));

@@ -167,16 +167,16 @@ exports.checkPartner = function(code, callback) {
     , callback);
 };
 
-exports.requestdeposit = function(depositId, amount, uowner, uaccf, uid, callback) {
+exports.requestdeposit = function(depositId, amount, uowner, uaccf, uid, partner,callback) {
     
-    query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname) VALUES (1, $1, now(), 1, $5, $2, $3, $4, $6);', [amount, uowner, uaccf, depositId, uid, '신청'], function(err, res) {
+    query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname,partner) VALUES (1, $1, now(), 1, $5, $2, $3, $4, $6, $7);', [amount, uowner, uaccf, depositId, uid, '신청',partner], function(err, res) {
         if(err) return callback(err);
 
         assert(res.rowCount === 1);
         callback(null);
     });
 };
-exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, wdcnt, callback) {
+exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, wdcnt,partner, callback) {
     let up_1st_req="";
     let wd_cnt_str="wd_cnt=wd_cnt+1";
     if (wdcnt==0) {
@@ -188,7 +188,7 @@ exports.requestwithdraw = function(depositId, amount, uowner, uaccf, uid, sum, w
     }
 
     getClient(function(client, callback) {
-        client.query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname) VALUES (2, $1, now(), 1, $5, $2, $3, $4, $6);', [amount, uowner, uaccf, depositId, uid, '신청'], function(err, res) {
+        client.query('INSERT INTO public.cash(mode, value, requested, step, uid, uname, uacc, id, stname,partner) VALUES (2, $1, now(), 1, $5, $2, $3, $4, $6, $7);', [amount, uowner, uaccf, depositId, uid, '신청', partner], function(err, res) {
             if(err) return callback(err);
             if (res.rowCount !== 1)
                 return callback(new Error('Unexpected withdrawal row count: \n' + res));
