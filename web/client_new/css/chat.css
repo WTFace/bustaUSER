@@ -158,6 +158,9 @@
 .msg-highlight-message {
     background-color: rgba(0, 61, 255, 0.2);
 }
+.msg-admin-body{
+    color: forestgreen
+}
 
 .msg-mute-message {
     line-height: 17px;

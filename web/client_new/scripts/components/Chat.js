@@ -270,6 +270,7 @@ define([
         _renderMessage: function(message, index) {
 
         var pri = 'msg-chat-message';
+        var msgBody = 'msg-body';
         switch(message.type) {
             case 'say':
 
@@ -291,7 +292,7 @@ define([
                 }
 
                 if (message.role === 'admin')
-                    pri += ' msg-admin-message';
+                    pri += ' msg-admin-message';msgBody +=' msg-admin-body';
 
                 var username = ChatEngine.username;
 
@@ -317,7 +318,7 @@ define([
                     ),
                     ' ',
                     D.span({
-                        className: 'msg-body',
+                        className: msgBody,
                         dangerouslySetInnerHTML: {
                             __html: Autolinker.link(
                                 escapeHTML(message.message),
