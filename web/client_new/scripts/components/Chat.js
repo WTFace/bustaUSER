@@ -292,7 +292,7 @@ define([
                 }
 
                 if (message.role === 'admin')
-                    pri += ' msg-admin-message';msgBody +=' msg-admin-body';
+                    pri += ' msg-admin-message';
 
                 var username = ChatEngine.username;
 
@@ -318,7 +318,7 @@ define([
                     ),
                     ' ',
                     D.span({
-                        className: msgBody,
+                        className: message.role==='admin'? 'msg-admin-body' : 'msg-body',
                         dangerouslySetInnerHTML: {
                             __html: Autolinker.link(
                                 escapeHTML(message.message),
